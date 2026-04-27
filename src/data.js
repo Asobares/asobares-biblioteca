@@ -1,54 +1,68 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// USUARIOS INICIALES
-// Roles disponibles: "superadmin" | "admin" | "user"
-// ─────────────────────────────────────────────────────────────────────────────
 export const INITIAL_USERS = [
   { id: 1, username: "superadmin", password: "super2026",   role: "superadmin", name: "Super Administrador" },
   { id: 2, username: "admin",      password: "admin2026",   role: "admin",      name: "Administrador" },
   { id: 3, username: "socio1",     password: "socio123",    role: "user",       name: "Carlos Pérez" },
   { id: 4, username: "socio2",     password: "socio456",    role: "user",       name: "María González" },
 ];
-
-export const ROLE_LABELS = {
-  superadmin: "Super Admin",
-  admin:      "Admin",
-  user:       "Usuario",
-};
-
-export const ROLE_COLORS = {
-  superadmin: "#8B0000",
-  admin:      "#1565C0",
-  user:       "#2E7D32",
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// CONFIGURACIÓN DE PDFs
-// Reemplaza los driveUrl con los links reales de tu Google Drive.
-// Formato: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview
-// ─────────────────────────────────────────────────────────────────────────────
+export const ROLE_LABELS = { superadmin: "Super Admin", admin: "Admin", user: "Usuario" };
+export const ROLE_COLORS = { superadmin: "#8B0000", admin: "#1565C0", user: "#2E7D32" };
 export const PDFS = [
-  {
-    id: 1,
-    title: "Análisis Decreto 190 Bogotá vs Nuevo POT",
-    category: "",
-    description: "",
-    driveUrl: "https://drive.google.com/file/d/1Ro7_7NeAwqJCEEp6zpd_wiFIgpbyyqpq/preview",
-    icon: "📋",
-    date: "",
-    pages: "",
-  },
-  {
-    id: 2,
-    title: "Capacitación Causales de Sellamiento",
-    category: "",
-    description: "",
-    driveUrl: "https://drive.google.com/file/d/1W64K_1285Vr6mSszihnHixN2w8ydenle/preview",
-    icon: "🎓",
-    date: "",
-    pages: "",
-  },
+  { id: 1,  title: "Análisis Decreto 190 Bogotá vs Nuevo POT",                        category: "Plan de Ordenamiento Territorial", description: "", driveUrl: "https://drive.google.com/file/d/1Ro7_7NeAwqJCEEp6zpd_wiFIgpbyyqpq/preview", icon: "📋", date: "", pages: "" },
+  { id: 2,  title: "Capacitación Causales de Sellamiento",                             category: "Seguridad y Convivencia",          description: "", driveUrl: "https://drive.google.com/file/d/1W64K_1285Vr6mSszihnHixN2w8ydenle/preview", icon: "🎓", date: "", pages: "" },
+  { id: 3,  title: "Economía Nocturna para Candidatos",                                category: "Ciudades 24 Horas", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/09/ECONOMIA-NOCTURNA-PARA-CANDIDATOS._.pdf", icon: "🌃", date: "", pages: "" },
+  { id: 4,  title: "Guía para Gestionar su Economía Nocturna",                         category: "Ciudades 24 Horas", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/guia_gestion_economia_nocturna.pdf", icon: "🌃", date: "", pages: "" },
+  { id: 5,  title: "Guía en 3 Pasos para la Creación de un Plan de Vida Nocturna",    category: "Ciudades 24 Horas", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/GUIA-EN-3-PASOS-PARA-GESTIONAR-LA-NOCHE.pdf", icon: "🌃", date: "", pages: "" },
+  { id: 6,  title: "Global Nighttime Recovery Plan",                                   category: "Ciudades 24 Horas", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/Ch6_sustaining-our-nightlife-scenes-II_GNRP.pdf", icon: "🌃", date: "", pages: "" },
+  { id: 7,  title: "Seguridad Pública y Seguridad de la Vía en la Noche",             category: "Seguridad y Convivencia", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/garantizar_la_seguridad.pdf", icon: "🔒", date: "", pages: "" },
+  { id: 8,  title: "Resumen Código de Policía - Artículos Establecimientos",           category: "Seguridad y Convivencia", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/RESUMEN-CODIGO-DE-POLICIA-ARTS-ESTABLECIMIENTOS.pdf", icon: "🔒", date: "", pages: "" },
+  { id: 9,  title: "Cómo Prevenir el Delito",                                          category: "Seguridad y Convivencia", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/COMO-PREVENIR-EL-DELITO.pdf", icon: "🔒", date: "", pages: "" },
+  { id: 10, title: "Memorias Foro Externado - Medidas Restrictivas",                   category: "Seguridad y Convivencia", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/MEMORIAS-FORO-EXTERNADO-MEDIDAS-RESTRICTIVAS.pdf", icon: "🔒", date: "", pages: "" },
+  { id: 11, title: "Crimen Organizado - Hugo Acero",                                   category: "Seguridad y Convivencia", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/CRIMEN-ORGANIZADO-por-HUGO-ACERO.pdf", icon: "🔒", date: "", pages: "" },
+  { id: 12, title: "Informe Anual de Seguridad 2022",                                  category: "Seguridad y Convivencia", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/Informe-anual-de-seguridad-2022_Resumen-ejecutivo-1.pdf", icon: "🔒", date: "", pages: "" },
+  { id: 13, title: "Hoja de Ruta para la Seguridad Territorial",                       category: "Seguridad y Convivencia", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/04/fip_ne_hojarutaseguridad_final.pdf", icon: "🔒", date: "", pages: "" },
+  { id: 14, title: "Incidencia del Consumo de Alcohol en la Violencia y Delincuencia", category: "Seguridad y Convivencia", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2024/01/INCIDENCIA-DEL-CONSUMO-DE-ALCOHOL-EN-LA-VIOLENCIA-Y-DELINCUENCIA-por-Hugo-Acero-2023.pdf", icon: "🔒", date: "", pages: "" },
+  { id: 15, title: "Informe Anual de Seguridad 2023",                                  category: "Seguridad y Convivencia", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2024/04/Informe-Anual-Seguridad-2023.pdf", icon: "🔒", date: "", pages: "" },
+  { id: 16, title: "Cómo le Fue al Turismo en Bogotá 2021",                            category: "Turismo, Música y Cultura", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/Como-le-Fue-al-Turismo-en-Bogota-2021.pdf", icon: "🎵", date: "", pages: "" },
+  { id: 17, title: "Participación de la Mujer en el Turismo en Bogotá 2021",           category: "Turismo, Música y Cultura", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/Estudio-Participacion-de-la-Mujer-en-el-Turismo-en-Bogota-Comportamiento-de-la-oferta-y-demanda2021-MOV1.pdf", icon: "🎵", date: "", pages: "" },
+  { id: 18, title: "Música en Vivo y Turismo - ProColombia 2019",                      category: "Turismo, Música y Cultura", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/MUSICA-EN-VIVO-Y-TURISMO-PROCOLOMBIA-2019.pptx", icon: "🎵", date: "", pages: "" },
+  { id: 19, title: "Dinámica del Baile en Bogotá - Rumba 2016",                        category: "Turismo, Música y Cultura", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/Presentacion-Rumba-en-Bogota-2016-SDDE.pptx", icon: "🎵", date: "", pages: "" },
+  { id: 20, title: "Bogotá Ciudad de la Música - Turismo y Expobar 2018",              category: "Turismo, Música y Cultura", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/TURISMO-MUSICA-EXPOBAR-2018-IDT.pdf", icon: "🎵", date: "", pages: "" },
+  { id: 21, title: "Music is the New Gastronomy - White Paper",                        category: "Turismo, Música y Cultura", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/White-Paper-Musica-y-Turismo.-Version-ingles..pdf", icon: "🎵", date: "", pages: "" },
+  { id: 22, title: "Medición Evento en Ciudad - Festival Estéreo Picnic",              category: "Turismo, Música y Cultura", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/06/Medicion-Evento-en-Ciudad-Festival-Estereo-Picnic-MOV1.pdf", icon: "🎵", date: "", pages: "" },
+  { id: 23, title: "Medición de Festivales",                                            category: "Turismo, Música y Cultura", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/06/MedicionFestivales.pdf", icon: "🎵", date: "", pages: "" },
+  { id: 24, title: "Reporte Economía Naranja",                                          category: "Ciudades Inteligentes", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/REPORTE-ECONOMIA-NARANJA.pdf", icon: "🏙️", date: "", pages: "" },
+  { id: 25, title: "Política Pública de Economía Cultural y Creativa",                 category: "Ciudades Inteligentes", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/politica_economia_cultural_y_creativa_2_0.pdf", icon: "🏙️", date: "", pages: "" },
+  { id: 26, title: "Estudio Ciudades Inteligentes - BID",                              category: "Ciudades Inteligentes", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/ESTUDIO-CIUDADES-INTELIGENTES-BID.pdf", icon: "🏙️", date: "", pages: "" },
+  { id: 27, title: "Planes Estratégicos de Consumo Responsable",                       category: "Consumo Responsable", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/PLANES-ESTRATEGICOS-CONSUMO.pptx", icon: "🍷", date: "", pages: "" },
+  { id: 28, title: "Código de Buenas Prácticas - Bebidas Alcohólicas",                 category: "Consumo Responsable", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2024/07/Codigo-de-Buenas-Practicas-bebidas-alcoholicas-1.pdf", icon: "🍷", date: "", pages: "" },
+  { id: 29, title: "Pactos por la Vida - Saber Beber",                                 category: "Consumo Responsable", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/PRESENTACION-SABER-BEBER-DEC120.pdf", icon: "🍷", date: "", pages: "" },
+  { id: 30, title: "El Maravilloso Mundo de la Coctelería",                            category: "Información General para Emprender y Formalizar", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/COCTELERIA-por-ANDRES-MARTINY.pdf", icon: "🏪", date: "", pages: "" },
+  { id: 31, title: "Guía Legal para Registrar su Establecimiento",                     category: "Información General para Emprender y Formalizar", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/GUIA-LEGAL-PARA-REGISTRAR-SU-ESTABLECIMIENTO.pdf", icon: "🏪", date: "", pages: "" },
+  { id: 32, title: "Manual de Bebidas La Barra - ASOBARES",                            category: "Información General para Emprender y Formalizar", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/MANUAL-DE-BEBIDAS-LA-BARRA-ASOBARES.pdf", icon: "🏪", date: "", pages: "" },
+  { id: 33, title: "Manual Sistema de Gestión de Seguridad y Salud en el Trabajo",    category: "Información General para Emprender y Formalizar", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/Manual-Sistema-de-Gestion-de-seguridad-y-Salud-en-el-Trabajo.pdf", icon: "🏪", date: "", pages: "" },
+  { id: 34, title: "Resumen Código de Policía - Artículos Establecimientos (2)",       category: "Información General para Emprender y Formalizar", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/RESUMEN-CODIGO-DE-POLICIA-ARTS-ESTABLECIMIENTOS-1.pdf", icon: "🏪", date: "", pages: "" },
+  { id: 35, title: "Presentación Control de Ruido - Conacústica",                      category: "Información General para Emprender y Formalizar", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/Presentacion-General-Conacustica-Control-Ruido.pdf", icon: "🏪", date: "", pages: "" },
+  { id: 36, title: "Guía Integral para Optimizar la Mano de Obra en Hostelería",       category: "Información General para Emprender y Formalizar", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/GUIA-INTEGRAL-PARA-OPTIMIZAR-LA-MANO-DE-OBRA-EN-HOSTELERIA.pdf", icon: "🏪", date: "", pages: "" },
+  { id: 37, title: "Proyecte sus Ventas y Negocie su Arriendo (Excel)",                category: "Información General para Emprender y Formalizar", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/PROYECTE-SUS-VENTAS-Y-NEGOCIE-SU-ARRIENDO.xlsx", icon: "🏪", date: "", pages: "" },
+  { id: 38, title: "Reporte Tendencias de Marketing Digital - HubSpot 2022",           category: "Información General para Emprender y Formalizar", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/REPORTE-TENDENCIAS-DE-MARKETING-DIGITAL-HUBSPOT-2.pdf", icon: "🏪", date: "", pages: "" },
+  { id: 39, title: "Participación Laboral Sector Servicios - EAS DANE",                category: "Información Laboral y Económica", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/PARTICIPACION-LABORAL-SECTOR-SERVICIOS-EAS-DANE-1.jpeg", icon: "💼", date: "", pages: "" },
+  { id: 40, title: "Empleo y Educación en el Sector",                                  category: "Información Laboral y Económica", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/EMPLEO-Y-EDUCACION-EN-EL-SECTOR-1.png", icon: "💼", date: "", pages: "" },
+  { id: 41, title: "Presentación Reforma Tributaria",                                  category: "Información Laboral y Económica", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/PRESENTACION-REFORMA-TRIBUTARIA-1.pdf", icon: "💼", date: "", pages: "" },
+  { id: 42, title: "Informe Sustancias Psicoactivas - Medicina Legal 2020",            category: "Sustancias Psicoactivas", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/informe-de-resultados-Sustancias-Psicoactivas-Medicina-Legal-2020.pdf", icon: "🔬", date: "", pages: "" },
+  { id: 43, title: "Encuesta Global de Consumo de Drogas 2022",                        category: "Sustancias Psicoactivas", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/ENCUESTA-GLOBAL-DE-CONSUMO-DE-DROGAS-2022-ingles.pdf", icon: "🔬", date: "", pages: "" },
+  { id: 44, title: "Análisis Decreto 190 Bogotá vs Nuevo POT (PDF)",                   category: "Plan de Ordenamiento Territorial", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/ANALISIS-DECRETO-190-BOGOTA-VS-NUEVO-POT.pdf", icon: "📋", date: "", pages: "" },
+  { id: 45, title: "Patrimonios Históricos y POT",                                     category: "Plan de Ordenamiento Territorial", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/PATRIMONIOS-HISTORICOS-Y-POT.pdf", icon: "📋", date: "", pages: "" },
+  { id: 46, title: "Cartilla Mobiliario Urbano Apropiado para Bogotá",                 category: "Plan de Ordenamiento Territorial", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/06/Cartilla_Mobiliario-urbano-apropiado-para-Bogota_low2.pdf", icon: "📋", date: "", pages: "" },
 ];
-
-export const CATEGORIES = ["Todos"];
-
-export const CATEGORY_COLORS = {};
+export const CATEGORY_COLORS = {
+  "Ciudades 24 Horas":                                "#E65100",
+  "Seguridad y Convivencia":                          "#1565C0",
+  "Turismo, Música y Cultura":                        "#6A1B9A",
+  "Ciudades Inteligentes":                            "#00695C",
+  "Consumo Responsable":                              "#2E7D32",
+  "Información General para Emprender y Formalizar":  "#AD1457",
+  "Información Laboral y Económica":                  "#F57F17",
+  "Sustancias Psicoactivas":                          "#37474F",
+  "Plan de Ordenamiento Territorial":                 "#C62828",
+  "Estudios":                                         "#1A237E",
+};
