@@ -3,10 +3,24 @@ import PdfCard        from "./PdfCard.jsx";
 import PdfModal       from "./PdfModal.jsx";
 import UserManagement from "./UserManagement.jsx";
 import AddDocument    from "./AddDocument.jsx";
+import { CATEGORY_COLORS } from "../data.js";
 import logo from "/logo.png";
 
+const CATEGORY_ICONS = {
+  "Plan de Ordenamiento Territorial":               "📋",
+  "Seguridad y Convivencia":                        "🔒",
+  "Ciudades 24 Horas":                             "🌃",
+  "Turismo, Música y Cultura":                      "🎵",
+  "Ciudades Inteligentes":                          "🏙️",
+  "Consumo Responsable":                            "🍷",
+  "Información General para Emprender y Formalizar":"🏪",
+  "Información Laboral y Económica":               "💼",
+  "Sustancias Psicoactivas":                        "🔬",
+  "Estudios":                                       "📊",
+};
+
 export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsChange, onLogout }) {
-  const [activeCategory, setActiveCategory] = useState("Todos");
+  const [activeCategory, setActiveCategory] = useState(null);
   const [search,         setSearch]         = useState("");
   const [openPdf,        setOpenPdf]        = useState(null);
   const [showUsers,      setShowUsers]      = useState(false);
@@ -15,18 +29,31 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
   const canManageUsers = user.role === "superadmin" || user.role === "admin";
   const isSuperAdmin   = user.role === "superadmin";
 
-  const categories = ["Todos", ...new Set(pdfs.map((p) => p.category).filter(Boolean))];
+  const categoryList = [...new Set(pdfs.map((p) => p.category).filter(Boolean))];
+  const categoryCount = (cat) => pdfs.filter((p) => p.category === cat).length;
 
-  const filtered = pdfs.filter((p) => {
-    const matchCat    = activeCategory === "Todos" || p.category === activeCategory;
-    const matchSearch = !search || p.title.toLowerCase().includes(search.toLowerCase());
-    return matchCat && matchSearch;
-  });
+  const filtered = activeCategory
+    ? pdfs.filter((p) => {
+        const matchCat    = p.category === activeCategory;
+        const matchSearch = !search || p.title.toLowerCase().includes(search.toLowerCase());
+        return matchCat && matchSearch;
+      })
+    : [];
+
+  function handleBack() {
+    setActiveCategory(null);
+    setSearch("");
+  }
 
   return (
     <div className="app">
       <header className="header">
         <div className="header-brand">
+          {activeCategory && (
+            <button className="back-btn" onClick={handleBack}>
+              ← Categorías
+            </button>
+          )}
           <div className="header-logo"><img src={logo} alt="ASOBARES" /></div>
         </div>
         <div className="header-right">
@@ -62,7 +89,7 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
             <div className="hero-stat-label">Documentos</div>
           </div>
           <div className="hero-stat">
-            <div className="hero-stat-num">{categories.length - 1 || "—"}</div>
+            <div className="hero-stat-num">{categoryList.length}</div>
             <div className="hero-stat-label">Categorías</div>
           </div>
           <div className="hero-stat">
@@ -73,45 +100,76 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
       </div>
 
       <div className="content">
-        <div className="toolbar">
-          <div className="categories">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                className={`cat-btn ${activeCategory === cat ? "active" : ""}`}
-                onClick={() => setActiveCategory(cat)}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-          <div className="search-wrap">
-            <span className="search-icon">🔍</span>
-            <input
-              className="search-input"
-              placeholder="Buscar documento..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-        </div>
+        {!activeCategory && (
+          <>
+            <h2 className="section-title">Explorar por Categoría</h2>
+            <div className="category-grid">
+              {categoryList.map((cat, i) => {
+                const color = CATEGORY_COLORS[cat] || "#8B0000";
+                const icon  = CATEGORY_ICONS[cat]  || "📄";
+                const count = categoryCount(cat);
+                return (
+                  <button
+                    key={cat}
+                    className="cat-card"
+                    onClick={() => setActiveCategory(cat)}
+                    style={{ "--cat-color": color, animationDelay: `${i * 60}ms` }}
+                  >
+                    <div className="cat-card-top">
+                      <span className="cat-card-icon">{icon}</span>
+                    </div>
+                    <div className="cat-card-body">
+                      <div className="cat-card-name">{cat}</div>
+                      <div className="cat-card-count">{count} documento{count !== 1 ? "s" : ""}</div>
+                    </div>
+                    <div className="cat-card-arrow">→</div>
+                  </button>
+                );
+              })}
+            </div>
+          </>
+        )}
 
-        {filtered.length === 0 ? (
-          <div className="empty">
-            <div className="empty-icon">📭</div>
-            <div className="empty-text">No se encontraron documentos</div>
-          </div>
-        ) : (
-          <div className="pdf-grid">
-            {filtered.map((pdf, i) => (
-              <PdfCard
-                key={pdf.id}
-                pdf={pdf}
-                onOpen={setOpenPdf}
-                style={{ animationDelay: `${i * 50}ms` }}
+        {activeCategory && (
+          <>
+            <div className="category-header">
+              <div className="category-header-badge" style={{ background: CATEGORY_COLORS[activeCategory] || "#8B0000" }}>
+                {CATEGORY_ICONS[activeCategory] || "📄"}
+              </div>
+              <div>
+                <h2 className="category-header-title">{activeCategory}</h2>
+                <p className="category-header-sub">{categoryCount(activeCategory)} documentos disponibles</p>
+              </div>
+            </div>
+
+            <div className="search-wrap" style={{ marginBottom: "2rem" }}>
+              <span className="search-icon">🔍</span>
+              <input
+                className="search-input"
+                placeholder="Buscar documento..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
-            ))}
-          </div>
+            </div>
+
+            {filtered.length === 0 ? (
+              <div className="empty">
+                <div className="empty-icon">📭</div>
+                <div className="empty-text">No se encontraron documentos</div>
+              </div>
+            ) : (
+              <div className="pdf-grid">
+                {filtered.map((pdf, i) => (
+                  <PdfCard
+                    key={pdf.id}
+                    pdf={pdf}
+                    onOpen={setOpenPdf}
+                    style={{ animationDelay: `${i * 50}ms` }}
+                  />
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
 
@@ -119,8 +177,8 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
         © 2026 <span>ASOBARES Colombia</span> — Todos los derechos reservados
       </footer>
 
-      {openPdf   && <PdfModal pdf={openPdf} onClose={() => setOpenPdf(null)} />}
-      {showUsers && <UserManagement currentUser={user} users={users} onUsersChange={onUsersChange} onClose={() => setShowUsers(false)} />}
+      {openPdf    && <PdfModal pdf={openPdf} onClose={() => setOpenPdf(null)} />}
+      {showUsers  && <UserManagement currentUser={user} users={users} onUsersChange={onUsersChange} onClose={() => setShowUsers(false)} />}
       {showAddDoc && <AddDocument pdfs={pdfs} onPdfsChange={onPdfsChange} onClose={() => setShowAddDoc(false)} />}
     </div>
   );
