@@ -49,11 +49,6 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
     <div className="app">
       <header className="header">
         <div className="header-brand">
-          {activeCategory && (
-            <button className="back-btn" onClick={handleBack}>
-              ← Categorías
-            </button>
-          )}
           <div className="header-logo"><img src={logo} alt="ASOBARES" /></div>
         </div>
         <div className="header-right">
@@ -100,6 +95,8 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
       </div>
 
       <div className="content">
+
+        {/* ══ INICIO: tarjetas de categoría ══ */}
         {!activeCategory && (
           <>
             <h2 className="section-title">Explorar por Categoría</h2>
@@ -130,11 +127,16 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
           </>
         )}
 
+        {/* ══ CATEGORÍA: listado de PDFs ══ */}
         {activeCategory && (
           <>
+            <button className="back-btn" onClick={handleBack}>
+              ← Volver a Categorías
+            </button>
+
             <div className="category-header">
               <div className="category-header-badge" style={{ background: CATEGORY_COLORS[activeCategory] || "#8B0000" }}>
-                {CATEGORY_ICONS[activeCategory] || "📄"}
+                {CATEGORY_ICONS[activeCategory] || "��"}
               </div>
               <div>
                 <h2 className="category-header-title">{activeCategory}</h2>
