@@ -53,6 +53,16 @@ export const PDFS = [
   { id: 44, title: "Análisis Decreto 190 Bogotá vs Nuevo POT (PDF)",                   category: "Plan de Ordenamiento Territorial", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/ANALISIS-DECRETO-190-BOGOTA-VS-NUEVO-POT.pdf", icon: "📋", date: "", pages: "" },
   { id: 45, title: "Patrimonios Históricos y POT",                                     category: "Plan de Ordenamiento Territorial", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/03/PATRIMONIOS-HISTORICOS-Y-POT.pdf", icon: "📋", date: "", pages: "" },
   { id: 46, title: "Cartilla Mobiliario Urbano Apropiado para Bogotá",                 category: "Plan de Ordenamiento Territorial", description: "", driveUrl: "https://viejo.asobares.org/wp-content/uploads/2023/06/Cartilla_Mobiliario-urbano-apropiado-para-Bogota_low2.pdf", icon: "📋", date: "", pages: "" },
+  { id: 47, title: "Redes - Marzo 2026",                   category: "Estudios", description: "", driveUrl: "https://drive.google.com/file/d/1cht1Au-vX2ntvVeV7EERcIcAEakHo1fN/preview", icon: "📊", date: "", pages: "" },
+  { id: 48, title: "Boletín IATA Colombia Abril 2025",      category: "Estudios", description: "", driveUrl: "https://drive.google.com/file/d/19arDiRC0U6qBwv4JkLyStw0q_T8OKo7j/preview", icon: "📊", date: "", pages: "" },
+  { id: 49, title: "Boletín IATA Colombia Agosto 2025",     category: "Estudios", description: "", driveUrl: "https://drive.google.com/file/d/1878ZqrSB3CmmLWFPPIFIwRe50keZR4Sh/preview", icon: "📊", date: "", pages: "" },
+  { id: 50, title: "Boletín IATA Colombia Enero 2026",      category: "Estudios", description: "", driveUrl: "https://drive.google.com/file/d/1NaZiv-8K649GseU5kblJbHXgS29byxJ2/preview", icon: "📊", date: "", pages: "" },
+  { id: 51, title: "Boletín IATA Colombia Marzo 2025",      category: "Estudios", description: "", driveUrl: "https://drive.google.com/file/d/15v7jpdaSwHEQ86FhPhyy9qtx1RJ7BWa9/preview", icon: "📊", date: "", pages: "" },
+  { id: 52, title: "Boletín OTB Dic - Ene",                 category: "Estudios", description: "", driveUrl: "https://drive.google.com/file/d/1JVjpPI3APhSjWsRnGNw-tjqCl3bMPlWN/preview", icon: "📊", date: "", pages: "" },
+  { id: 53, title: "Boletín OTB Nov - Dic",                 category: "Estudios", description: "", driveUrl: "https://drive.google.com/file/d/1G_sCSBMLQ4T-TrlHGEFPTPMiR8-_eQM8/preview", icon: "📊", date: "", pages: "" },
+  { id: 54, title: "Boletín Consolidado 2025",              category: "Estudios", description: "", driveUrl: "https://drive.google.com/file/d/1rgV9dfIMnB_75wu7kcZHmiTvUb-buBz1/preview", icon: "📊", date: "", pages: "" },
+  { id: 55, title: "Investigación Viajeros en Bogotá 2025", category: "Estudios", description: "", driveUrl: "https://drive.google.com/file/d/1t4A6nMeW25LdzODwhKhOIpnGEwxlefkN/preview", icon: "📊", date: "", pages: "" },
+  { id: 56, title: "Septiembre CTCI",                       category: "Estudios", description: "", driveUrl: "https://drive.google.com/file/d/1AcRK5EGOacRdIzeEkhymmCCWuUFm9LCm/preview", icon: "📊", date: "", pages: "" },
 ];
 export const CATEGORY_COLORS = {
   "Ciudades 24 Horas":                                "#E65100",
