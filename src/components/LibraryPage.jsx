@@ -32,14 +32,17 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
   const categoryList = [...new Set(pdfs.map((p) => p.category).filter(Boolean))];
   const categoryCount = (cat) => pdfs.filter((p) => p.category === cat).length;
 
-  const searchLower = search.toLowerCase();
+  const norm = (s) => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const searchNorm = norm(search);
+  const matchesPdf = (p) =>
+    norm(p.title).includes(searchNorm) ||
+    norm(p.category).includes(searchNorm) ||
+    (p.keywords || []).some((k) => norm(k).includes(searchNorm));
+
   const filtered = activeCategory
-    ? pdfs.filter((p) =>
-        p.category === activeCategory &&
-        (!search || p.title.toLowerCase().includes(searchLower))
-      )
+    ? pdfs.filter((p) => p.category === activeCategory && (!search || matchesPdf(p)))
     : search
-    ? pdfs.filter((p) => p.title.toLowerCase().includes(searchLower))
+    ? pdfs.filter(matchesPdf)
     : [];
 
   function handleBack() {
