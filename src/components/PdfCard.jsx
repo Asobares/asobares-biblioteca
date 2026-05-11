@@ -8,7 +8,7 @@ function getThumbnail(driveUrl) {
   return null;
 }
 
-export default function PdfCard({ pdf, onOpen, style }) {
+export default function PdfCard({ pdf, onOpen, style, showCategory }) {
   const color     = CATEGORY_COLORS[pdf.category] || "#8B0000";
   const thumbnail = getThumbnail(pdf.driveUrl);
 
@@ -38,6 +38,11 @@ export default function PdfCard({ pdf, onOpen, style }) {
         </div>
       </div>
       <div className="pdf-card-body">
+        {showCategory && pdf.category && (
+          <div className="pdf-category-badge" style={{ background: `${color}18`, color }}>
+            {pdf.category}
+          </div>
+        )}
         <div className="pdf-title">{pdf.title}</div>
         {pdf.description && <div className="pdf-desc">{pdf.description}</div>}
         <div className="pdf-open-hint" style={{ color }}>

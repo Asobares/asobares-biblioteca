@@ -32,12 +32,14 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
   const categoryList = [...new Set(pdfs.map((p) => p.category).filter(Boolean))];
   const categoryCount = (cat) => pdfs.filter((p) => p.category === cat).length;
 
+  const searchLower = search.toLowerCase();
   const filtered = activeCategory
-    ? pdfs.filter((p) => {
-        const matchCat    = p.category === activeCategory;
-        const matchSearch = !search || p.title.toLowerCase().includes(search.toLowerCase());
-        return matchCat && matchSearch;
-      })
+    ? pdfs.filter((p) =>
+        p.category === activeCategory &&
+        (!search || p.title.toLowerCase().includes(searchLower))
+      )
+    : search
+    ? pdfs.filter((p) => p.title.toLowerCase().includes(searchLower))
     : [];
 
   function handleBack() {
@@ -99,6 +101,56 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
         {/* ══ INICIO: tarjetas de categoría ══ */}
         {!activeCategory && (
           <>
+            <div className="search-wrap" style={{ marginBottom: "2rem" }}>
+              <span className="search-icon">🔍</span>
+              <input
+                className="search-input"
+                placeholder="Buscar en toda la biblioteca..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              {search && (
+                <button
+                  onClick={() => setSearch("")}
+                  style={{
+                    position: "absolute", right: "14px", top: "50%", transform: "translateY(-50%)",
+                    background: "none", border: "none", cursor: "pointer", fontSize: "1rem",
+                    color: "var(--text-light)", lineHeight: 1,
+                  }}
+                  aria-label="Limpiar búsqueda"
+                >✕</button>
+              )}
+            </div>
+
+            {search ? (
+              <>
+                <p className="search-results-label">
+                  {filtered.length === 0
+                    ? "Sin resultados para"
+                    : `${filtered.length} resultado${filtered.length !== 1 ? "s" : ""} para`}{" "}
+                  <strong>"{search}"</strong>
+                </p>
+                {filtered.length === 0 ? (
+                  <div className="empty">
+                    <div className="empty-icon">📭</div>
+                    <div className="empty-text">No se encontraron documentos</div>
+                  </div>
+                ) : (
+                  <div className="pdf-grid">
+                    {filtered.map((pdf, i) => (
+                      <PdfCard
+                        key={pdf.id}
+                        pdf={pdf}
+                        onOpen={setOpenPdf}
+                        showCategory
+                        style={{ animationDelay: `${i * 50}ms` }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </>
+            ) : (
+            <>
             <h2 className="section-title">Explorar por Categoría</h2>
             <div className="category-grid">
               {categoryList.map((cat, i) => {
@@ -109,7 +161,7 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
                   <button
                     key={cat}
                     className="cat-card"
-                    onClick={() => setActiveCategory(cat)}
+                    onClick={() => { setActiveCategory(cat); setSearch(""); }}
                     style={{ "--cat-color": color, animationDelay: `${i * 60}ms` }}
                   >
                     <div className="cat-card-top">
@@ -124,6 +176,8 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
                 );
               })}
             </div>
+            </>
+            )}
           </>
         )}
 
