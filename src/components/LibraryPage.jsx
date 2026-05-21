@@ -4,6 +4,7 @@ import PdfModal       from "./PdfModal.jsx";
 import UserManagement from "./UserManagement.jsx";
 import AddDocument    from "./AddDocument.jsx";
 import RequestsPanel  from "./RequestsPanel.jsx";
+import AlliesSection  from "./AlliesSection.jsx";
 import { CATEGORY_COLORS } from "../data.js";
 import logo from "/logo.png";
 
@@ -21,6 +22,7 @@ const CATEGORY_ICONS = {
 };
 
 export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsChange, requests, onRequestsChange, onLogout }) {
+  const [view,           setView]           = useState("library"); // "library" | "allies"
   const [activeCategory, setActiveCategory] = useState(null);
   const [search,         setSearch]         = useState("");
   const [openPdf,        setOpenPdf]        = useState(null);
@@ -29,6 +31,8 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
   const [showRequests,   setShowRequests]   = useState(false);
 
   const pendingRequests = (requests || []).filter((r) => r.status === "pending").length;
+
+  function switchView(v) { setView(v); setActiveCategory(null); setSearch(""); }
 
   const canManageUsers = user.role === "superadmin" || user.role === "admin";
   const isSuperAdmin   = user.role === "superadmin";
@@ -106,11 +110,23 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
             <div className="hero-stat-label">Actualizado</div>
           </div>
         </div>
+        <div className="hero-tabs">
+          <button className={`hero-tab ${view === "library" ? "active" : ""}`} onClick={() => switchView("library")}>
+            📚 Biblioteca
+          </button>
+          <button className={`hero-tab ${view === "allies" ? "active" : ""}`} onClick={() => switchView("allies")}>
+            🤝 Aliados
+          </button>
+        </div>
       </div>
 
       <div className="content">
 
+        {/* ══ ALIADOS ══ */}
+        {view === "allies" && <AlliesSection />}
+
         {/* ══ INICIO: tarjetas de categoría ══ */}
+        {view === "library" && <>
         {!activeCategory && (
           <>
             <div className="search-wrap" style={{ marginBottom: "2rem" }}>
@@ -239,6 +255,7 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
             )}
           </>
         )}
+        </>}
       </div>
 
       <footer className="footer">
