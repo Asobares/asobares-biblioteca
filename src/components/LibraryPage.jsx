@@ -65,9 +65,8 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
             <button className="manage-btn" onClick={() => setShowAddDoc(true)}>+ Documento</button>
           )}
           {isSuperAdmin && (
-            <button className="manage-btn requests-btn" onClick={() => setShowRequests(true)}>
-              📋 Solicitudes
-              {pendingRequests > 0 && <span className="requests-badge">{pendingRequests}</span>}
+            <button className="manage-btn requests-btn" onClick={() => setShowRequests(true)} title="Solicitudes de registro">
+              📋 Solicitudes{pendingRequests > 0 && <span className="requests-badge">{pendingRequests}</span>}
             </button>
           )}
           {canManageUsers && (
