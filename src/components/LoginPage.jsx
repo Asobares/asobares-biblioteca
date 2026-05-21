@@ -1,15 +1,24 @@
 import { useState } from "react";
 import { INITIAL_USERS } from "../data.js";
-import logo      from "/logo.png";       // logo color → header
-import logoWhite from "/logo-white.png"; // logo blanco → login
+import logoWhite from "/logo-white.png";
+
+const EMPTY_REG = { razonSocial: "", establecimiento: "", nombreApellido: "", telefono: "", email: "" };
 
 export default function LoginPage({ onLogin, users }) {
+  const [view, setView] = useState("login"); // "login" | "register" | "success"
+
+  // Login state
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError]       = useState("");
-  const [loading, setLoading]   = useState(false);
+  const [error,    setError]    = useState("");
+  const [loading,  setLoading]  = useState(false);
 
-  const handleSubmit = () => {
+  // Register state
+  const [reg,     setReg]     = useState(EMPTY_REG);
+  const [regErr,  setRegErr]  = useState({});
+  const [sending, setSending] = useState(false);
+
+  function handleLogin() {
     setError("");
     setLoading(true);
     setTimeout(() => {
@@ -23,53 +32,161 @@ export default function LoginPage({ onLogin, users }) {
       }
       setLoading(false);
     }, 600);
+  }
+
+  function validateReg() {
+    const errs = {};
+    if (!reg.razonSocial.trim())     errs.razonSocial     = "Campo requerido";
+    if (!reg.establecimiento.trim()) errs.establecimiento = "Campo requerido";
+    if (!reg.nombreApellido.trim())  errs.nombreApellido  = "Campo requerido";
+    if (!reg.telefono.trim())        errs.telefono        = "Campo requerido";
+    if (!reg.email.trim())           errs.email           = "Campo requerido";
+    else if (!/\S+@\S+\.\S+/.test(reg.email)) errs.email = "Email inválido";
+    return errs;
+  }
+
+  function handleRegister() {
+    const errs = validateReg();
+    if (Object.keys(errs).length) { setRegErr(errs); return; }
+    setSending(true);
+    setTimeout(() => {
+      setSending(false);
+      setView("success");
+    }, 800);
+  }
+
+  function goToLogin() {
+    setView("login");
+    setReg(EMPTY_REG);
+    setRegErr({});
+  }
+
+  const setField = (field) => (e) => {
+    setReg((prev) => ({ ...prev, [field]: e.target.value }));
+    if (regErr[field]) setRegErr((prev) => ({ ...prev, [field]: "" }));
   };
 
   return (
     <div className="login-wrap">
       <div className="login-bg-pattern" />
-      <div className="login-card">
 
-        <div className="login-logo-area">
-          <div className="login-logo-circle">
-            {/* Logo: reemplaza /public/logo.png con tu imagen real */}
-            <img src={logoWhite} alt="ASOBARES" />
+      {/* ── LOGIN ── */}
+      {view === "login" && (
+        <div className="login-card">
+          <div className="login-logo-area">
+            <div className="login-logo-circle">
+              <img src={logoWhite} alt="ASOBARES" />
+            </div>
+            <div className="login-divider" />
+            <div className="login-heading">Biblioteca Virtual</div>
           </div>
-          <div className="login-divider" />
-          <div className="login-heading">Biblioteca Virtual</div>
+
+          {error && <div className="error-msg">⚠️ {error}</div>}
+
+          <div className="form-group">
+            <label className="form-label">Usuario</label>
+            <input
+              className={`form-input ${error ? "error-input" : ""}`}
+              type="text"
+              placeholder="Ingresa tu usuario"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Contraseña</label>
+            <input
+              className={`form-input ${error ? "error-input" : ""}`}
+              type="password"
+              placeholder="Ingresa tu contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+            />
+          </div>
+
+          <button className="login-btn" onClick={handleLogin} disabled={loading}>
+            {loading ? "Verificando..." : "Ingresar"}
+          </button>
+
+          <div className="login-register-link">
+            ¿No tienes cuenta?{" "}
+            <button className="link-btn" onClick={() => setView("register")}>
+              Registrarse
+            </button>
+          </div>
         </div>
+      )}
 
-        {error && <div className="error-msg">⚠️ {error}</div>}
+      {/* ── REGISTRO ── */}
+      {view === "register" && (
+        <div className="login-card login-card--wide">
+          <div className="login-logo-area">
+            <div className="login-logo-circle">
+              <img src={logoWhite} alt="ASOBARES" />
+            </div>
+            <div className="login-divider" />
+            <div className="login-heading">Solicitud de Registro</div>
+          </div>
 
-        <div className="form-group">
-          <label className="form-label">Usuario</label>
-          <input
-            className={`form-input ${error ? "error-input" : ""}`}
-            type="text"
-            placeholder="Ingresa tu usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-          />
+          <RegField label="Nombre o razón social"  value={reg.razonSocial}     onChange={setField("razonSocial")}     error={regErr.razonSocial}     placeholder="Ej. Inversiones XYZ S.A.S." />
+          <RegField label="Nombre del establecimiento" value={reg.establecimiento} onChange={setField("establecimiento")} error={regErr.establecimiento} placeholder="Ej. Bar La Esquina" />
+          <RegField label="Nombre y apellido"       value={reg.nombreApellido}  onChange={setField("nombreApellido")}  error={regErr.nombreApellido}  placeholder="Ej. Juan García" />
+          <RegField label="Teléfono"                value={reg.telefono}        onChange={setField("telefono")}        error={regErr.telefono}        placeholder="Ej. 300 123 4567" type="tel" />
+          <RegField label="Email"                   value={reg.email}           onChange={setField("email")}           error={regErr.email}           placeholder="Ej. juan@email.com" type="email" />
+
+          <button className="login-btn" onClick={handleRegister} disabled={sending} style={{ marginTop: "4px" }}>
+            {sending ? "Enviando..." : "Enviar Solicitud"}
+          </button>
+
+          <div className="login-register-link">
+            <button className="link-btn" onClick={goToLogin}>← Volver al inicio de sesión</button>
+          </div>
         </div>
+      )}
 
-        <div className="form-group">
-          <label className="form-label">Contraseña</label>
-          <input
-            className={`form-input ${error ? "error-input" : ""}`}
-            type="password"
-            placeholder="Ingresa tu contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-          />
+      {/* ── ÉXITO ── */}
+      {view === "success" && (
+        <div className="login-card">
+          <div className="login-logo-area">
+            <div className="login-logo-circle">
+              <img src={logoWhite} alt="ASOBARES" />
+            </div>
+            <div className="login-divider" />
+          </div>
+
+          <div className="register-success">
+            <div className="register-success-icon">✓</div>
+            <h3 className="register-success-title">¡Solicitud enviada!</h3>
+            <p className="register-success-desc">
+              Tu solicitud de acceso ha sido recibida. Un administrador revisará tu información
+              y te enviará las credenciales de acceso a tu correo electrónico.
+            </p>
+          </div>
+
+          <button className="login-btn" onClick={goToLogin}>
+            Volver al inicio de sesión
+          </button>
         </div>
+      )}
+    </div>
+  );
+}
 
-        <button className="login-btn" onClick={handleSubmit} disabled={loading}>
-          {loading ? "Verificando..." : "Ingresar"}
-        </button>
-
-      </div>
+function RegField({ label, value, onChange, error, placeholder, type = "text" }) {
+  return (
+    <div className="form-group">
+      <label className="form-label">{label}</label>
+      <input
+        className={`form-input ${error ? "error-input" : ""}`}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
+      {error && <span className="field-error">{error}</span>}
     </div>
   );
 }

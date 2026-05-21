@@ -165,6 +165,74 @@ body { font-family: 'Poppins', sans-serif; }
 .login-btn:active  { transform: translateY(0); }
 .login-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
+.login-register-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--red-mid);
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.link-btn:hover { color: var(--red-deep); }
+
+.login-card--wide {
+  width: 480px;
+  max-width: 95vw;
+}
+
+.field-error {
+  display: block;
+  margin-top: 5px;
+  padding-left: 8px;
+  font-size: 11px;
+  color: #C62828;
+  font-weight: 500;
+}
+
+.register-success {
+  text-align: center;
+  padding: 8px 0 24px;
+}
+
+.register-success-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2E7D32, #43A047);
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  box-shadow: 0 6px 20px rgba(46,125,50,0.35);
+}
+
+.register-success-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.register-success-desc {
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+}
+
 /* ══════════════════════════════════════════
    APP SHELL
 ══════════════════════════════════════════ */
