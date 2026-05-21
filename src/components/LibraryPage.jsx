@@ -3,6 +3,7 @@ import PdfCard        from "./PdfCard.jsx";
 import PdfModal       from "./PdfModal.jsx";
 import UserManagement from "./UserManagement.jsx";
 import AddDocument    from "./AddDocument.jsx";
+import RequestsPanel  from "./RequestsPanel.jsx";
 import { CATEGORY_COLORS } from "../data.js";
 import logo from "/logo.png";
 
@@ -19,12 +20,15 @@ const CATEGORY_ICONS = {
   "Estudios":                                       "📊",
 };
 
-export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsChange, onLogout }) {
+export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsChange, requests, onRequestsChange, onLogout }) {
   const [activeCategory, setActiveCategory] = useState(null);
   const [search,         setSearch]         = useState("");
   const [openPdf,        setOpenPdf]        = useState(null);
   const [showUsers,      setShowUsers]      = useState(false);
   const [showAddDoc,     setShowAddDoc]     = useState(false);
+  const [showRequests,   setShowRequests]   = useState(false);
+
+  const pendingRequests = (requests || []).filter((r) => r.status === "pending").length;
 
   const canManageUsers = user.role === "superadmin" || user.role === "admin";
   const isSuperAdmin   = user.role === "superadmin";
@@ -59,6 +63,12 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
         <div className="header-right">
           {isSuperAdmin && (
             <button className="manage-btn" onClick={() => setShowAddDoc(true)}>+ Documento</button>
+          )}
+          {isSuperAdmin && (
+            <button className="manage-btn requests-btn" onClick={() => setShowRequests(true)}>
+              📋 Solicitudes
+              {pendingRequests > 0 && <span className="requests-badge">{pendingRequests}</span>}
+            </button>
           )}
           {canManageUsers && (
             <button className="manage-btn" onClick={() => setShowUsers(true)}>👥 Usuarios</button>
@@ -236,9 +246,10 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
         © 2026 <span>ASOBARES Colombia</span> — Todos los derechos reservados
       </footer>
 
-      {openPdf    && <PdfModal pdf={openPdf} onClose={() => setOpenPdf(null)} />}
-      {showUsers  && <UserManagement currentUser={user} users={users} onUsersChange={onUsersChange} onClose={() => setShowUsers(false)} />}
-      {showAddDoc && <AddDocument pdfs={pdfs} onPdfsChange={onPdfsChange} onClose={() => setShowAddDoc(false)} />}
+      {openPdf       && <PdfModal pdf={openPdf} onClose={() => setOpenPdf(null)} />}
+      {showUsers     && <UserManagement currentUser={user} users={users} onUsersChange={onUsersChange} onClose={() => setShowUsers(false)} />}
+      {showAddDoc    && <AddDocument pdfs={pdfs} onPdfsChange={onPdfsChange} onClose={() => setShowAddDoc(false)} />}
+      {showRequests  && <RequestsPanel requests={requests || []} onRequestsChange={onRequestsChange} onUsersChange={onUsersChange} users={users} onClose={() => setShowRequests(false)} />}
     </div>
   );
 }

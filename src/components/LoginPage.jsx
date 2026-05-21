@@ -4,7 +4,7 @@ import logoWhite from "/logo-white.png";
 
 const EMPTY_REG = { razonSocial: "", establecimiento: "", nombreApellido: "", telefono: "", email: "" };
 
-export default function LoginPage({ onLogin, users }) {
+export default function LoginPage({ onLogin, users, onRequest }) {
   const [view, setView] = useState("login"); // "login" | "register" | "success"
 
   // Login state
@@ -50,6 +50,7 @@ export default function LoginPage({ onLogin, users }) {
     if (Object.keys(errs).length) { setRegErr(errs); return; }
     setSending(true);
     setTimeout(() => {
+      onRequest(reg);
       setSending(false);
       setView("success");
     }, 800);
