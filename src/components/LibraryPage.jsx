@@ -112,10 +112,13 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
         </div>
         <div className="hero-tabs">
           <button className={`hero-tab ${view === "library" ? "active" : ""}`} onClick={() => switchView("library")}>
-            📚 Biblioteca
+            <span className="tab-emoji">📚</span> Biblioteca
           </button>
           <button className={`hero-tab ${view === "allies" ? "active" : ""}`} onClick={() => switchView("allies")}>
-            🤝 Aliados
+            <span className="tab-emoji">🤝</span> Aliados
+          </button>
+          <button className={`hero-tab ${view === "training" ? "active" : ""}`} onClick={() => switchView("training")}>
+            <span className="tab-emoji">🎓</span> Capacitaciones
           </button>
         </div>
       </div>
@@ -124,6 +127,17 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
 
         {/* ══ ALIADOS ══ */}
         {view === "allies" && <AlliesSection />}
+
+        {/* ══ CAPACITACIONES ══ */}
+        {view === "training" && (
+          <div className="empty" style={{ padding: "5rem 0" }}>
+            <div className="empty-icon">🎓</div>
+            <div className="empty-text">Próximamente</div>
+            <p style={{ color: "var(--text-light)", fontSize: "0.9rem", marginTop: "0.5rem" }}>
+              Las capacitaciones estarán disponibles pronto.
+            </p>
+          </div>
+        )}
 
         {/* ══ INICIO: tarjetas de categoría ══ */}
         {view === "library" && <>
