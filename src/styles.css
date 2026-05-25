@@ -1481,7 +1481,7 @@ body { font-family: 'Poppins', sans-serif; }
 
 .training-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 22px;
 }
 
@@ -1508,7 +1508,7 @@ body { font-family: 'Poppins', sans-serif; }
 .training-thumb {
   position: relative;
   width: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: 9/16;
   overflow: hidden;
   background: #111;
 }
