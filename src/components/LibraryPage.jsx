@@ -5,7 +5,8 @@ import PdfModal       from "./PdfModal.jsx";
 import UserManagement from "./UserManagement.jsx";
 import AddDocument    from "./AddDocument.jsx";
 import RequestsPanel  from "./RequestsPanel.jsx";
-import AlliesSection  from "./AlliesSection.jsx";
+import AlliesSection    from "./AlliesSection.jsx";
+import TrainingSection  from "./TrainingSection.jsx";
 import { CATEGORY_COLORS } from "../data.js";
 import logo from "/logo.png";
 
@@ -130,15 +131,7 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
         {view === "allies" && <AlliesSection />}
 
         {/* ══ CAPACITACIONES ══ */}
-        {view === "training" && (
-          <div className="empty" style={{ padding: "5rem 0" }}>
-            <div className="empty-icon">🎓</div>
-            <div className="empty-text">Próximamente</div>
-            <p style={{ color: "var(--text-light)", fontSize: "0.9rem", marginTop: "0.5rem" }}>
-              Las capacitaciones estarán disponibles pronto.
-            </p>
-          </div>
-        )}
+        {view === "training" && <TrainingSection />}
 
         {/* ══ INICIO: tarjetas de categoría ══ */}
         {view === "library" && <>
