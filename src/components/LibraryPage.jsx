@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BookOpen, Handshake, GraduationCap } from "lucide-react";
 import PdfCard        from "./PdfCard.jsx";
 import PdfModal       from "./PdfModal.jsx";
 import UserManagement from "./UserManagement.jsx";
@@ -112,13 +113,13 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
         </div>
         <div className="hero-tabs">
           <button className={`hero-tab ${view === "library" ? "active" : ""}`} onClick={() => switchView("library")}>
-            <span className="tab-emoji">📚</span> Biblioteca
+            <BookOpen size={18} strokeWidth={2.2} /> Biblioteca
           </button>
           <button className={`hero-tab ${view === "allies" ? "active" : ""}`} onClick={() => switchView("allies")}>
-            <span className="tab-emoji">🤝</span> Aliados
+            <Handshake size={18} strokeWidth={2.2} /> Aliados
           </button>
           <button className={`hero-tab ${view === "training" ? "active" : ""}`} onClick={() => switchView("training")}>
-            <span className="tab-emoji">🎓</span> Capacitaciones
+            <GraduationCap size={18} strokeWidth={2.2} /> Capacitaciones
           </button>
         </div>
       </div>
