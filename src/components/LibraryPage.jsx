@@ -18,7 +18,7 @@ const CATEGORY_IMAGES = {
   "Información General para Emprender y Formalizar": "/Categorias/informacion-general.jpeg",
   "Información Laboral y Económica":                 "/Categorias/informacion-laboral.jpeg",
   "Sustancias Psicoactivas":                         "/Categorias/sustancias-psicoactivas.jpeg",
-  "Estudios":                                        "/Categorias/Estudios.jpeg",
+  "Estudios":                                        "/Categorias/estudios.jpeg",
 };
 
 export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsChange, requests, onRequestsChange, onLogout }) {
@@ -196,7 +196,6 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
                       className="cat-card-top"
                       style={{ backgroundImage: `url('${imgUrl}')` }}
                     >
-                      <div className="cat-card-overlay" style={{ background: `${color}cc` }} />
                       <div className="cat-card-info">
                         <div className="cat-card-name">{cat}</div>
                         <div className="cat-card-count">{count} documento{count !== 1 ? "s" : ""}</div>

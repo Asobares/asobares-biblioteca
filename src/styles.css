@@ -1128,20 +1128,10 @@ body { font-family: 'Poppins', sans-serif; }
   align-items: flex-end;
 }
 
-.cat-card-overlay {
-  position: absolute;
-  inset: 0;
-  transition: opacity 0.25s;
-}
-.cat-card:hover .cat-card-overlay {
-  opacity: 0.82;
-}
-
 .cat-card-info {
-  position: relative;
-  z-index: 1;
-  padding: 1rem 1.1rem;
   width: 100%;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.0) 100%);
 }
 
 .cat-card-name {
@@ -1150,7 +1140,6 @@ body { font-family: 'Poppins', sans-serif; }
   color: #fff;
   line-height: 1.3;
   margin-bottom: 0.2rem;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 
 .cat-card-count {
