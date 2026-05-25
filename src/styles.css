@@ -1130,8 +1130,9 @@ body { font-family: 'Poppins', sans-serif; }
 
 .cat-card-info {
   width: 100%;
-  padding: 0.75rem 1rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.0) 100%);
+  padding: 0.7rem 1rem;
+  background: rgba(0,0,0,0.58);
+  backdrop-filter: blur(2px);
 }
 
 .cat-card-name {
