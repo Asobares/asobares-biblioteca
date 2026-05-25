@@ -8,17 +8,17 @@ import AlliesSection  from "./AlliesSection.jsx";
 import { CATEGORY_COLORS } from "../data.js";
 import logo from "/logo.png";
 
-const CATEGORY_ICONS = {
-  "Plan de Ordenamiento Territorial":               "📋",
-  "Seguridad y Convivencia":                        "🔒",
-  "Ciudades 24 Horas":                             "🌃",
-  "Turismo, Música y Cultura":                      "🎵",
-  "Ciudades Inteligentes":                          "🏙️",
-  "Consumo Responsable":                            "🍷",
-  "Información General para Emprender y Formalizar":"🏪",
-  "Información Laboral y Económica":               "💼",
-  "Sustancias Psicoactivas":                        "🔬",
-  "Estudios":                                       "📊",
+const CATEGORY_IMAGES = {
+  "Plan de Ordenamiento Territorial":                "/Categorias/pot.jpeg",
+  "Seguridad y Convivencia":                         "/Categorias/seguridad.jpeg",
+  "Ciudades 24 Horas":                               "/Categorias/ciudades-24-horas.jpeg",
+  "Turismo, Música y Cultura":                       "/Categorias/turismo.jpeg",
+  "Ciudades Inteligentes":                           "/Categorias/ciudades-inteligentes.jpeg",
+  "Consumo Responsable":                             "/Categorias/consumo-responsable.jpeg",
+  "Información General para Emprender y Formalizar": "/Categorias/informacion-general.jpeg",
+  "Información Laboral y Económica":                 "/Categorias/informacion-laboral.jpeg",
+  "Sustancias Psicoactivas":                         "/Categorias/sustancias-psicoactivas.jpeg",
+  "Estudios":                                        "/Categorias/Estudios.jpeg",
 };
 
 export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsChange, requests, onRequestsChange, onLogout }) {
@@ -183,9 +183,8 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
             <div className="category-grid">
               {categoryList.map((cat, i) => {
                 const color = CATEGORY_COLORS[cat] || "#8B0000";
-                const icon  = CATEGORY_ICONS[cat]  || "📄";
                 const count = categoryCount(cat);
-                const imgUrl = `/Categorias/${encodeURIComponent(cat)}.jpeg`;
+                const imgUrl = CATEGORY_IMAGES[cat] || "";
                 return (
                   <button
                     key={cat}

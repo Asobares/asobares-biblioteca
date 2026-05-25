@@ -1111,7 +1111,6 @@ body { font-family: 'Poppins', sans-serif; }
   overflow: hidden;
   animation: fadeUp 0.4s both;
   transition: transform 0.25s, box-shadow 0.25s;
-  aspect-ratio: 4/3;
 }
 .cat-card:hover {
   transform: translateY(-5px) scale(1.02);
@@ -1120,9 +1119,10 @@ body { font-family: 'Poppins', sans-serif; }
 
 .cat-card-top {
   width: 100%;
-  height: 100%;
+  height: 200px;
   background-size: cover;
   background-position: center;
+  background-color: #8B0000;
   position: relative;
   display: flex;
   align-items: flex-end;
