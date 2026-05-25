@@ -185,21 +185,24 @@ export default function LibraryPage({ user, users, onUsersChange, pdfs, onPdfsCh
                 const color = CATEGORY_COLORS[cat] || "#8B0000";
                 const icon  = CATEGORY_ICONS[cat]  || "📄";
                 const count = categoryCount(cat);
+                const imgUrl = `/Categorias/${encodeURIComponent(cat)}.jpeg`;
                 return (
                   <button
                     key={cat}
                     className="cat-card"
                     onClick={() => { setActiveCategory(cat); setSearch(""); }}
-                    style={{ "--cat-color": color, animationDelay: `${i * 60}ms` }}
+                    style={{ animationDelay: `${i * 60}ms` }}
                   >
-                    <div className="cat-card-top">
-                      <span className="cat-card-icon">{icon}</span>
+                    <div
+                      className="cat-card-top"
+                      style={{ backgroundImage: `url('${imgUrl}')` }}
+                    >
+                      <div className="cat-card-overlay" style={{ background: `${color}cc` }} />
+                      <div className="cat-card-info">
+                        <div className="cat-card-name">{cat}</div>
+                        <div className="cat-card-count">{count} documento{count !== 1 ? "s" : ""}</div>
+                      </div>
                     </div>
-                    <div className="cat-card-body">
-                      <div className="cat-card-name">{cat}</div>
-                      <div className="cat-card-count">{count} documento{count !== 1 ? "s" : ""}</div>
-                    </div>
-                    <div className="cat-card-arrow">→</div>
                   </button>
                 );
               })}

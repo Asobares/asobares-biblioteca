@@ -1098,71 +1098,65 @@ body { font-family: 'Poppins', sans-serif; }
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.25rem;
 }
 
 .cat-card {
-  background: #fff;
   border: none;
   border-radius: 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.15);
   cursor: pointer;
   padding: 0;
-  text-align: left;
-  transition: transform 0.2s, box-shadow 0.2s;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   animation: fadeUp 0.4s both;
-  position: relative;
+  transition: transform 0.25s, box-shadow 0.25s;
+  aspect-ratio: 4/3;
 }
 .cat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.25);
 }
 
 .cat-card-top {
-  background: var(--cat-color, #8B0000);
-  padding: 1.5rem;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.cat-card-icon {
-  font-size: 2.4rem;
+  align-items: flex-end;
 }
 
-.cat-card-body {
-  padding: 1rem 1.25rem 1.5rem;
-  flex: 1;
+.cat-card-overlay {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.25s;
 }
+.cat-card:hover .cat-card-overlay {
+  opacity: 0.82;
+}
+
+.cat-card-info {
+  position: relative;
+  z-index: 1;
+  padding: 1rem 1.1rem;
+  width: 100%;
+}
+
 .cat-card-name {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #222;
+  color: #fff;
   line-height: 1.3;
-  margin-bottom: 0.35rem;
-}
-.cat-card-count {
-  font-size: 0.8rem;
-  color: #888;
+  margin-bottom: 0.2rem;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 
-.cat-card-arrow {
-  position: absolute;
-  bottom: 1rem;
-  right: 1.25rem;
-  font-size: 1.1rem;
-  color: var(--cat-color, #8B0000);
-  font-weight: 700;
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity 0.2s, transform 0.2s;
-}
-.cat-card:hover .cat-card-arrow {
-  opacity: 1;
-  transform: translateX(0);
+.cat-card-count {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
 }
 
 .category-header {
