@@ -1,6 +1,11 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import { INITIAL_USERS } from "../data.js";
 import logoWhite from "/logo-white.png";
+
+const EJS_SERVICE  = "service_1yzqhuj";
+const EJS_TEMPLATE = "template_0nrni8o";
+const EJS_KEY      = "VkovpjqHQoa6hcwlv";
 
 const EMPTY_REG = {
   razonSocial: "", nit: "", establecimiento: "", ciudad: "",
@@ -51,11 +56,21 @@ export default function LoginPage({ onLogin, users, onRequest }) {
     const errs = validateReg();
     if (Object.keys(errs).length) { setRegErr(errs); return; }
     setSending(true);
-    setTimeout(() => {
+    emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+      razonSocial:     reg.razonSocial,
+      nit:             reg.nit,
+      establecimiento: reg.establecimiento,
+      ciudad:          reg.ciudad,
+      nombreApellido:  reg.nombreApellido,
+      telefono:        reg.telefono,
+      email:           reg.email,
+      esAfiliado:      reg.esAfiliado,
+      name:            reg.nombreApellido,
+    }, EJS_KEY).finally(() => {
       onRequest(reg);
       setSending(false);
       setView("success");
-    }, 800);
+    });
   }
 
   function goToLogin() {
