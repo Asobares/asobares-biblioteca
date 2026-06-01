@@ -61,7 +61,7 @@ export const ALLIES = [
   },
   {
     id: 8,
-    name: "Balzack",
+    name: "Balzak",
     benefit: "Dotación especializada para su negocio — 8% de descuento",
     phone: "3175753305",
     email: null,
