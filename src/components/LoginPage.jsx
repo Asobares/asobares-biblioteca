@@ -66,7 +66,7 @@ export default function LoginPage({ onLogin, users, onRequest }) {
       email:           reg.email,
       esAfiliado:      reg.esAfiliado,
       name:            reg.nombreApellido,
-    }, EJS_KEY).finally(() => {
+    }, { publicKey: EJS_KEY }).finally(() => {
       onRequest(reg);
       setSending(false);
       setView("success");
