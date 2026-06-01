@@ -2,18 +2,19 @@ import { useState } from "react";
 import { INITIAL_USERS } from "../data.js";
 import logoWhite from "/logo-white.png";
 
-const EMPTY_REG = { razonSocial: "", establecimiento: "", nombreApellido: "", telefono: "", email: "" };
+const EMPTY_REG = {
+  razonSocial: "", nit: "", establecimiento: "", ciudad: "",
+  nombreApellido: "", telefono: "", email: "", esAfiliado: "",
+};
 
 export default function LoginPage({ onLogin, users, onRequest }) {
   const [view, setView] = useState("login"); // "login" | "register" | "success"
 
-  // Login state
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error,    setError]    = useState("");
   const [loading,  setLoading]  = useState(false);
 
-  // Register state
   const [reg,     setReg]     = useState(EMPTY_REG);
   const [regErr,  setRegErr]  = useState({});
   const [sending, setSending] = useState(false);
@@ -25,9 +26,7 @@ export default function LoginPage({ onLogin, users, onRequest }) {
       const user = (users || INITIAL_USERS).find(
         (u) => u.username === username.trim() && u.password === password
       );
-      if (user) {
-        onLogin(user);
-      } else {
+      if (user) { onLogin(user); } else {
         setError("Usuario o contraseña incorrectos. Intenta de nuevo.");
       }
       setLoading(false);
@@ -37,11 +36,14 @@ export default function LoginPage({ onLogin, users, onRequest }) {
   function validateReg() {
     const errs = {};
     if (!reg.razonSocial.trim())     errs.razonSocial     = "Campo requerido";
+    if (!reg.nit.trim())             errs.nit             = "Campo requerido";
     if (!reg.establecimiento.trim()) errs.establecimiento = "Campo requerido";
+    if (!reg.ciudad.trim())          errs.ciudad          = "Campo requerido";
     if (!reg.nombreApellido.trim())  errs.nombreApellido  = "Campo requerido";
     if (!reg.telefono.trim())        errs.telefono        = "Campo requerido";
     if (!reg.email.trim())           errs.email           = "Campo requerido";
     else if (!/\S+@\S+\.\S+/.test(reg.email)) errs.email = "Email inválido";
+    if (!reg.esAfiliado)             errs.esAfiliado      = "Campo requerido";
     return errs;
   }
 
@@ -112,10 +114,10 @@ export default function LoginPage({ onLogin, users, onRequest }) {
             {loading ? "Verificando..." : "Ingresar"}
           </button>
 
-          <div className="login-register-link">
-            ¿No tienes cuenta?{" "}
-            <button className="link-btn" onClick={() => setView("register")}>
-              Registrarse
+          <div className="login-access-block">
+            <p className="login-access-text">¿No tienes acceso aún? Solicítalo</p>
+            <button className="login-access-btn" onClick={() => setView("register")}>
+              Solicitar Acceso
             </button>
           </div>
         </div>
@@ -129,14 +131,35 @@ export default function LoginPage({ onLogin, users, onRequest }) {
               <img src={logoWhite} alt="ASOBARES" />
             </div>
             <div className="login-divider" />
-            <div className="login-heading">Solicitud de Registro</div>
+            <div className="login-heading">Solicitar Acceso</div>
           </div>
 
-          <RegField label="Nombre o razón social"  value={reg.razonSocial}     onChange={setField("razonSocial")}     error={regErr.razonSocial}     placeholder="Ej. Inversiones XYZ S.A.S." />
-          <RegField label="Nombre del establecimiento" value={reg.establecimiento} onChange={setField("establecimiento")} error={regErr.establecimiento} placeholder="Ej. Bar La Esquina" />
-          <RegField label="Nombre y apellido"       value={reg.nombreApellido}  onChange={setField("nombreApellido")}  error={regErr.nombreApellido}  placeholder="Ej. Juan García" />
-          <RegField label="Teléfono"                value={reg.telefono}        onChange={setField("telefono")}        error={regErr.telefono}        placeholder="Ej. 300 123 4567" type="tel" />
-          <RegField label="Email"                   value={reg.email}           onChange={setField("email")}           error={regErr.email}           placeholder="Ej. juan@email.com" type="email" />
+          <RegField label="Nombre o razón social"      value={reg.razonSocial}     onChange={setField("razonSocial")}     error={regErr.razonSocial}     placeholder="Ej. Inversiones XYZ S.A.S." />
+          <RegField label="NIT"                         value={reg.nit}             onChange={setField("nit")}             error={regErr.nit}             placeholder="Ej. 900123456-7" />
+          <RegField label="Nombre del establecimiento"  value={reg.establecimiento} onChange={setField("establecimiento")} error={regErr.establecimiento} placeholder="Ej. Bar La Esquina" />
+          <RegField label="Ciudad"                      value={reg.ciudad}          onChange={setField("ciudad")}          error={regErr.ciudad}          placeholder="Ej. Bogotá" />
+          <RegField label="Nombre y apellido"           value={reg.nombreApellido}  onChange={setField("nombreApellido")}  error={regErr.nombreApellido}  placeholder="Ej. Juan García" />
+          <RegField label="Teléfono"                    value={reg.telefono}        onChange={setField("telefono")}        error={regErr.telefono}        placeholder="Ej. 300 123 4567" type="tel" />
+          <RegField label="Email"                       value={reg.email}           onChange={setField("email")}           error={regErr.email}           placeholder="Ej. juan@email.com" type="email" />
+
+          <div className="form-group">
+            <label className="form-label">¿Es afiliado a Asobares?</label>
+            <div className="radio-group">
+              {["Sí", "No"].map((opt) => (
+                <label key={opt} className={`radio-option ${reg.esAfiliado === opt ? "selected" : ""}`}>
+                  <input
+                    type="radio"
+                    name="esAfiliado"
+                    value={opt}
+                    checked={reg.esAfiliado === opt}
+                    onChange={setField("esAfiliado")}
+                  />
+                  {opt}
+                </label>
+              ))}
+            </div>
+            {regErr.esAfiliado && <span className="field-error">{regErr.esAfiliado}</span>}
+          </div>
 
           <button className="login-btn" onClick={handleRegister} disabled={sending} style={{ marginTop: "4px" }}>
             {sending ? "Enviando..." : "Enviar Solicitud"}
