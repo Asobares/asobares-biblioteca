@@ -223,4 +223,12 @@ export const ALLIES = [
     logo: null,
     isAsobares: true,
   },
+  {
+    id: 28,
+    name: "Bolsa de talento Cluster DJ",
+    benefit: "Encuentra el DJ perfecto para tu establecimiento",
+    logo: "https://www.clusterdj.co/img/logo_cluster_dj.png",
+    link: "https://www.clusterdj.co/bolsa",
+    isAsobares: true,
+  },
 ];

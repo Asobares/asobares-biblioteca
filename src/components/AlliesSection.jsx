@@ -33,7 +33,7 @@ export default function AlliesSection() {
 }
 
 function AllyCard({ ally, internal }) {
-  const hasContact = ally.phone || ally.email;
+  const hasContact = ally.phone || ally.email || ally.link;
 
   return (
     <div className={`ally-card ${internal ? "ally-card--internal" : ""}`}>
@@ -91,6 +91,17 @@ function AllyCard({ ally, internal }) {
               title={`Email ${ally.name}`}
             >
               ✉️ Email
+            </a>
+          )}
+          {ally.link && (
+            <a
+              href={ally.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ally-btn ally-btn--link"
+              title={`Visitar ${ally.name}`}
+            >
+              🌐 Ver más
             </a>
           )}
         </div>
