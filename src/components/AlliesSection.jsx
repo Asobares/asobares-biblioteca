@@ -37,7 +37,7 @@ function AllyCard({ ally, internal }) {
 
   return (
     <div className={`ally-card ${internal ? "ally-card--internal" : ""}`}>
-      <div className="ally-logo-wrap">
+      <div className={`ally-logo-wrap${ally.darkLogo ? " ally-logo-wrap--dark" : ""}`}>
         {ally.logo ? (
           <img
             src={ally.logo}

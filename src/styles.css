@@ -1459,6 +1459,8 @@ body { font-family: 'Poppins', sans-serif; }
   border: 2px solid rgba(139,0,0,0.15);
 }
 
+.ally-logo-wrap--dark { background: #1a1a1a !important; }
+
 .ally-logo-wrap {
   height: 110px;
   background: #fafafa;

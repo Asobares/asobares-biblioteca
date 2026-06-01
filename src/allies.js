@@ -228,6 +228,7 @@ export const ALLIES = [
     name: "Bolsa de talento Cluster DJ",
     benefit: "Encuentra el DJ perfecto para tu establecimiento",
     logo: "https://www.clusterdj.co/img/logo_cluster_dj.png",
+    darkLogo: true,
     link: "https://www.clusterdj.co/bolsa",
     isAsobares: true,
   },
