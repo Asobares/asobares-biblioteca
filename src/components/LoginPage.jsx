@@ -56,6 +56,7 @@ export default function LoginPage({ onLogin, users, onRequest }) {
     const errs = validateReg();
     if (Object.keys(errs).length) { setRegErr(errs); return; }
     setSending(true);
+    console.log("[EmailJS] Enviando solicitud...");
     emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
       razonSocial:     reg.razonSocial,
       nit:             reg.nit,
@@ -66,11 +67,14 @@ export default function LoginPage({ onLogin, users, onRequest }) {
       email:           reg.email,
       esAfiliado:      reg.esAfiliado,
       name:            reg.nombreApellido,
-    }, { publicKey: EJS_KEY }).finally(() => {
-      onRequest(reg);
-      setSending(false);
-      setView("success");
-    });
+    }, { publicKey: EJS_KEY })
+      .then(() => console.log("[EmailJS] OK — correo enviado"))
+      .catch((err) => console.error("[EmailJS] Error:", err))
+      .finally(() => {
+        onRequest(reg);
+        setSending(false);
+        setView("success");
+      });
   }
 
   function goToLogin() {
