@@ -7,9 +7,21 @@ const EJS_SERVICE  = "service_1yzqhuj";
 const EJS_TEMPLATE = "template_0nrni8o";
 const EJS_KEY      = "VkovpjqHQoa6hcwlv";
 
+const DEPARTAMENTOS = [
+  "Amazonas","Antioquia","Arauca","Atlántico","Bolívar","Boyacá","Caldas",
+  "Caquetá","Casanare","Cauca","Cesar","Chocó","Córdoba","Cundinamarca",
+  "Guainía","Guaviare","Huila","La Guajira","Magdalena","Meta","Nariño",
+  "Norte de Santander","Putumayo","Quindío","Risaralda",
+  "San Andrés y Providencia","Santander","Sucre","Tolima",
+  "Valle del Cauca","Vaupés","Vichada",
+];
+
+const CARGOS = ["Propietario", "Socio", "Gerente", "Administrador"];
+
 const EMPTY_REG = {
-  razonSocial: "", nit: "", establecimiento: "", ciudad: "",
-  nombreApellido: "", telefono: "", email: "", esAfiliado: "",
+  razonSocial: "", nit: "", establecimiento: "", municipio: "",
+  departamento: "", nombreApellido: "", cargo: "", telefono: "",
+  email: "", esAfiliado: "",
 };
 
 export default function LoginPage({ onLogin, users, onRequest }) {
@@ -43,8 +55,10 @@ export default function LoginPage({ onLogin, users, onRequest }) {
     if (!reg.razonSocial.trim())     errs.razonSocial     = "Campo requerido";
     if (!reg.nit.trim())             errs.nit             = "Campo requerido";
     if (!reg.establecimiento.trim()) errs.establecimiento = "Campo requerido";
-    if (!reg.ciudad.trim())          errs.ciudad          = "Campo requerido";
+    if (!reg.municipio.trim())       errs.municipio       = "Campo requerido";
+    if (!reg.departamento)           errs.departamento    = "Campo requerido";
     if (!reg.nombreApellido.trim())  errs.nombreApellido  = "Campo requerido";
+    if (!reg.cargo)                  errs.cargo           = "Campo requerido";
     if (!reg.telefono.trim())        errs.telefono        = "Campo requerido";
     if (!reg.email.trim())           errs.email           = "Campo requerido";
     else if (!/\S+@\S+\.\S+/.test(reg.email)) errs.email = "Email inválido";
@@ -56,19 +70,20 @@ export default function LoginPage({ onLogin, users, onRequest }) {
     const errs = validateReg();
     if (Object.keys(errs).length) { setRegErr(errs); return; }
     setSending(true);
-    console.log("[EmailJS] Enviando solicitud...");
     emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
       razonSocial:     reg.razonSocial,
       nit:             reg.nit,
       establecimiento: reg.establecimiento,
-      ciudad:          reg.ciudad,
+      municipio:       reg.municipio,
+      departamento:    reg.departamento,
       nombreApellido:  reg.nombreApellido,
+      cargo:           reg.cargo,
       telefono:        reg.telefono,
       email:           reg.email,
       esAfiliado:      reg.esAfiliado,
       name:            reg.nombreApellido,
     }, { publicKey: EJS_KEY })
-      .then(() => console.log("[EmailJS] OK — correo enviado"))
+      .then(() => console.log("[EmailJS] OK"))
       .catch((err) => console.error("[EmailJS] Error:", err))
       .finally(() => {
         onRequest(reg);
@@ -153,13 +168,23 @@ export default function LoginPage({ onLogin, users, onRequest }) {
             <div className="login-heading">Solicitar Acceso</div>
           </div>
 
-          <RegField label="Nombre o razón social"      value={reg.razonSocial}     onChange={setField("razonSocial")}     error={regErr.razonSocial}     placeholder="Ej. Inversiones XYZ S.A.S." />
-          <RegField label="NIT"                         value={reg.nit}             onChange={setField("nit")}             error={regErr.nit}             placeholder="Ej. 900123456-7" />
-          <RegField label="Nombre del establecimiento"  value={reg.establecimiento} onChange={setField("establecimiento")} error={regErr.establecimiento} placeholder="Ej. Bar La Esquina" />
-          <RegField label="Ciudad"                      value={reg.ciudad}          onChange={setField("ciudad")}          error={regErr.ciudad}          placeholder="Ej. Bogotá" />
-          <RegField label="Nombre y apellido"           value={reg.nombreApellido}  onChange={setField("nombreApellido")}  error={regErr.nombreApellido}  placeholder="Ej. Juan García" />
-          <RegField label="Teléfono"                    value={reg.telefono}        onChange={setField("telefono")}        error={regErr.telefono}        placeholder="Ej. 300 123 4567" type="tel" />
-          <RegField label="Email"                       value={reg.email}           onChange={setField("email")}           error={regErr.email}           placeholder="Ej. juan@email.com" type="email" />
+          <RegField label="Nombre o razón social"     value={reg.razonSocial}     onChange={setField("razonSocial")}     error={regErr.razonSocial}     placeholder="Ej. Inversiones XYZ S.A.S." />
+          <RegField label="NIT"                        value={reg.nit}             onChange={setField("nit")}             error={regErr.nit}             placeholder="Ej. 900123456-7" />
+          <RegField label="Nombre del establecimiento" value={reg.establecimiento} onChange={setField("establecimiento")} error={regErr.establecimiento} placeholder="Ej. Bar La Esquina" />
+          <RegField label="Municipio"                  value={reg.municipio}       onChange={setField("municipio")}       error={regErr.municipio}       placeholder="Ej. Medellín" />
+
+          <SelectField label="Departamento" value={reg.departamento} onChange={setField("departamento")} error={regErr.departamento} placeholder="Selecciona un departamento">
+            {DEPARTAMENTOS.map((d) => <option key={d} value={d}>{d}</option>)}
+          </SelectField>
+
+          <RegField label="Nombre y apellido" value={reg.nombreApellido} onChange={setField("nombreApellido")} error={regErr.nombreApellido} placeholder="Ej. Juan García" />
+
+          <SelectField label="Cargo" value={reg.cargo} onChange={setField("cargo")} error={regErr.cargo} placeholder="Selecciona tu cargo">
+            {CARGOS.map((c) => <option key={c} value={c}>{c}</option>)}
+          </SelectField>
+
+          <RegField label="Teléfono" value={reg.telefono} onChange={setField("telefono")} error={regErr.telefono} placeholder="Ej. 300 123 4567" type="tel" />
+          <RegField label="Email"    value={reg.email}    onChange={setField("email")}    error={regErr.email}    placeholder="Ej. juan@email.com" type="email" />
 
           <div className="form-group">
             <label className="form-label">¿Es afiliado a Asobares?</label>
@@ -229,6 +254,23 @@ function RegField({ label, value, onChange, error, placeholder, type = "text" })
         value={value}
         onChange={onChange}
       />
+      {error && <span className="field-error">{error}</span>}
+    </div>
+  );
+}
+
+function SelectField({ label, value, onChange, error, placeholder, children }) {
+  return (
+    <div className="form-group">
+      <label className="form-label">{label}</label>
+      <select
+        className={`form-input form-select ${error ? "error-input" : ""}`}
+        value={value}
+        onChange={onChange}
+      >
+        <option value="">{placeholder}</option>
+        {children}
+      </select>
       {error && <span className="field-error">{error}</span>}
     </div>
   );

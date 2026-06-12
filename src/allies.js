@@ -232,4 +232,20 @@ export const ALLIES = [
     link: "https://www.clusterdj.co/bolsa",
     isAsobares: true,
   },
+  {
+    id: 29,
+    name: "Cluster DJ",
+    benefit: "Sé parte de Cluster DJ, la comunidad que conecta, capacita y proyecta a los DJs de Colombia.",
+    logo: "https://www.clusterdj.co/img/logo_cluster_dj.png",
+    darkLogo: true,
+    link: "https://www.clusterdj.co",
+    isAsobares: true,
+  },
+  {
+    id: 30,
+    name: "Asesoría Presidencial y Política",
+    benefit: "Con Camilo Ospina, Presidente Junta Directiva Nacional",
+    logo: null,
+    isAsobares: true,
+  },
 ];
